@@ -1,17 +1,12 @@
 package com.easybuild.cores.utils;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import org.springframework.util.StringUtils;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import org.springframework.util.StringUtils;
 
 
 /**
@@ -42,39 +37,39 @@ public class PropertiesUtil {
 	 * 添加/更新
 	 */
 	public void write(String key, String value, String doc) {
+		String realpath = System.getProperty("user.dir") + "/" + path;
+		File sourceFile=new File(realpath);
+		String sourceFileName=sourceFile.getName();//原文件名称
+		File newFile=new File(realpath+".temp");
 		PrintWriter writer=null;
 		FileOutputStream out=null;
 		FileInputStream in=null;
 		BufferedReader reader=null;
 		
 		try {
-			// 获取配置绝对文件路径
-			String realpath = System.getProperty("user.dir") + "/" + path;
-			out=new FileOutputStream(realpath);
-			in=new FileInputStream(realpath);
-			
+			//1.读取
+			in=new FileInputStream(sourceFile);
+			out=new FileOutputStream(newFile);
 			reader=new BufferedReader(new InputStreamReader(in, "utf-8"));
-			
-			//根据是否存在相同的key判断更新或者添加操作
-			if(this.exist(key)) {//更新
-				System.out.println("=====更新=====");
-				writer=new PrintWriter(out,false);
-				writer.println("");
-				String line=null;
-				while((line=reader.readLine())!=null){
-					if(line.startsWith(key+"=")) {
-						line=key+"="+value;
+			writer=new PrintWriter(new OutputStreamWriter(out,"utf-8"));
+			boolean isExistKey=false;
+			//2.添加或更新，并保存到临时文件
+			String line=null;
+			while ((line=reader.readLine())!=null){
+				if(line.startsWith(key+"=")) {
+					isExistKey=true;
+					if(!StringUtils.isEmpty(doc)){
+						writer.println("#"+doc);
 					}
-					writer.println(line);
+					line=key+"="+value;
 				}
-			}else {//添加
-				System.out.println("=====添加=====");
-				writer=new PrintWriter(out,true);
-				if(!StringUtils.isEmpty(doc)) {
-					writer.println("#"+doc);
-				}
+				writer.println(line);
+			}
+			//如果不存在相同的key,则追加数据
+			if(!isExistKey){
 				writer.print(key+"="+value);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -107,6 +102,16 @@ public class PropertiesUtil {
 				}
 			}
 		}
+
+		//3.将原文件备份
+		String bakName=System.getProperty("user.dir")
+				+"/src/main/resources/bak/"
+				+DateUtil.getCurrentTimestamp()
+				+".bak";
+		sourceFile.renameTo(new File(bakName));
+
+		//4.临时文件取代原文件
+		newFile.renameTo(new File(realpath));
 	}
 	
 	

@@ -5,7 +5,7 @@ package com.easybuild.cores.config;
  */
 public class Database {
 	/**
-	 * 数据库地址
+	 * 数据库IP地址+端口  例如：127.0.0.1:3306
 	 */
 	private String url;
 	

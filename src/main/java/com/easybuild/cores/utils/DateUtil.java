@@ -1,8 +1,8 @@
 package com.easybuild.cores.utils;
+import org.springframework.util.StringUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.springframework.util.StringUtils;
 
 /**
  * 日期工具类
@@ -30,6 +30,12 @@ public class DateUtil {
     public static String getCurrentDateStr() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
+
+    public static String getCurrentTimestamp() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return sdf.format(date);
     }
 }

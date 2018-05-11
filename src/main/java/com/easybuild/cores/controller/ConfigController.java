@@ -1,5 +1,7 @@
 package com.easybuild.cores.controller;
 
+import com.easybuild.cores.utils.Result;
+import com.easybuild.cores.utils.ResultGenerator;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +17,17 @@ import com.easybuild.cores.utils.PropertiesUtil;
  */
 @RestController
 public class ConfigController {
-	
-	@PostMapping(value="/core/config/database")
-	public void cofigureDatabase(@RequestBody Database database) {
-		PropertiesUtil propertiesUtil=new PropertiesUtil("src/main/resources/application2.properties");
-		propertiesUtil.write("test", "5", null);
 
+	/**
+	 * 配置数据库信息
+	 * @param database  数据库IP及端口，数据库名称
+	 */
+	@PostMapping(value="/core/config/database")
+	public Result<String> cofigureDatabase(@RequestBody Database database) {
+		PropertiesUtil propertiesUtil=new PropertiesUtil("src/main/resources/application.properties");
+		propertiesUtil.write("spring.datasource.url",
+				"jdbc:mysql://"+database.getUrl()+"/"+database.getDatabaseName(),
+				null);
+		return ResultGenerator.genSuccessResult();
 	}
 }
