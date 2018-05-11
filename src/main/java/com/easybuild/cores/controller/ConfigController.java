@@ -19,6 +19,8 @@ public class ConfigController {
 	@PostMapping(value="/core/config/database")
 	public void cofigureDatabase(@RequestBody Database database) {
 		PropertiesUtil propertiesUtil=new PropertiesUtil("src/main/resources/application2.properties");
-//		propertiesUtil.write("test", "1", null);
+//		propertiesUtil.write("test", "3", null);
+		boolean exist = propertiesUtil.exist("test");
+		System.out.println(exist);
 	}
 }

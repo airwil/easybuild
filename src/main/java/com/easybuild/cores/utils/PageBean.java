@@ -12,7 +12,6 @@ public class PageBean {
     private int page; // 页码
     private int pageSize; // 单页数据量
     private int start;//开始位置
-    
 
     public PageBean(int page, int pageSize) {
         super();
@@ -37,8 +36,8 @@ public class PageBean {
     }
 
     public int getStart() {
-        return (page - 1) * pageSize;
+       this.start= (page - 1) * pageSize;
+       return start;
     }
 
-    
 }

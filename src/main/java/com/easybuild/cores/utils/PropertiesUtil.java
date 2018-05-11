@@ -42,7 +42,7 @@ public class PropertiesUtil {
 	/**
 	 * 添加/更新
 	 */
-	public void update(String key, String value, String doc) {
+	public void write(String key, String value, String doc) {
 		PrintWriter writer=null;
 		FileOutputStream out=null;
 		FileInputStream in=null;
@@ -58,7 +58,9 @@ public class PropertiesUtil {
 			
 			//根据是否存在相同的key判断更新或者添加操作
 			if(this.exist(key)) {//更新
+				System.out.println("=====更新=====");
 				writer=new PrintWriter(out,false);
+				writer.println("");
 				String line=null;
 				while((line=reader.readLine())!=null){
 					if(line.startsWith(key+"=")) {
@@ -67,11 +69,13 @@ public class PropertiesUtil {
 					writer.println(line);
 				}
 			}else {//添加
+				System.out.println("=====添加=====");
 				writer=new PrintWriter(out,true);
+				writer.println("");
 				if(!StringUtils.isEmpty(doc)) {
 					writer.println("#"+doc);
 				}
-				writer.println(key+"="+value);
+				writer.print(key+"="+value);
 			}
 			
 			
