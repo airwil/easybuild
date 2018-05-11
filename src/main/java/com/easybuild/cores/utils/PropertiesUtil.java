@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import org.springframework.util.StringUtils;
 
 
@@ -71,15 +70,11 @@ public class PropertiesUtil {
 			}else {//添加
 				System.out.println("=====添加=====");
 				writer=new PrintWriter(out,true);
-				writer.println("");
 				if(!StringUtils.isEmpty(doc)) {
 					writer.println("#"+doc);
 				}
 				writer.print(key+"="+value);
 			}
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -193,7 +188,7 @@ public class PropertiesUtil {
 			in=new FileInputStream(realpath);
 			// 加载配置文件
 			prop.load(new InputStreamReader(in, "utf-8"));
-			result=prop.contains(key);
+			result=prop.containsKey(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
