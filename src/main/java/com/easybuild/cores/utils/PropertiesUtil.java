@@ -39,7 +39,7 @@ public class PropertiesUtil {
 	public void write(String key, String value, String doc) {
 		String realpath = System.getProperty("user.dir") + "/" + path;
 		File sourceFile=new File(realpath);
-		String sourceFileName=sourceFile.getName();//原文件名称
+		//String sourceFileName=sourceFile.getName();//原文件名称
 		File newFile=new File(realpath+".temp");
 		PrintWriter writer=null;
 		FileOutputStream out=null;
