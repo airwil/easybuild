@@ -11,6 +11,8 @@ public class FieldInfo {
 	private String fieldNameUP;
 	//类型
 	private String fieldType;
+	//Java类型
+	private String javaType;
 	//注释
 	private String fieldRemark;
 	
@@ -29,6 +31,24 @@ public class FieldInfo {
 	}
 	public void setFieldType(String fieldType) {
 		this.fieldType = fieldType;
+		
+		switch (fieldType) {
+			case "INTEGER":
+				this.javaType="Integer";
+				break;
+			case "VARCHAR":
+				this.javaType="String";
+				break;
+			case "DATE":
+				this.javaType="java.util.Date";
+				break;
+			case "TIMESTAMP":
+				this.javaType="java.sql.Timestamp";
+				break;
+			case "DECIMAL":
+				this.javaType="java.math.BigDecimal";
+				break;
+			}
 	}
 	public String getFieldRemark() {
 		return fieldRemark;
@@ -38,5 +58,11 @@ public class FieldInfo {
 	}
 	public String getFieldNameUP() {
 		return fieldNameUP;
+	}
+	public String getJavaType() {
+		return javaType;
+	}
+	public void setJavaType(String javaType) {
+		this.javaType = javaType;
 	}
 }

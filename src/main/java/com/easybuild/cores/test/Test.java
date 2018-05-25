@@ -3,6 +3,7 @@ package com.easybuild.cores.test;
 /**
  * 测试
  * 
+ * 
  */
 public class Test{
 	
@@ -14,7 +15,7 @@ public class Test{
 	/**
 	 * 年龄
 	 */
-	private	int age;
+	private	Integer age;
 	
 	
 	
@@ -25,11 +26,11 @@ public class Test{
 	public void setUsername(String username){
 		this.username=username;
 	}
-	public int getAge(){
+	public Integer getAge(){
 		return age;
 	}
 	
-	public void setAge(int age){
+	public void setAge(Integer age){
 		this.age=age;
 	}
 	

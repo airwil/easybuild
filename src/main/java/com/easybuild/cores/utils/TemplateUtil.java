@@ -2,7 +2,9 @@ package com.easybuild.cores.utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +96,10 @@ public class TemplateUtil {
         	f.mkdirs();
         }
         
+        //生成时间
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        data.put("creatTime",sdf.format(new Date()));
+        
         //生成
 		try {
 			FileWriter writer = new FileWriter(dir);
@@ -130,11 +136,11 @@ public class TemplateUtil {
 		List<FieldInfo> list=new ArrayList<>();
 		FieldInfo info=new FieldInfo();
 		info.setFieldName("username");
-		info.setFieldType("String");
+		info.setFieldType("VARCHAR");
 		info.setFieldRemark("用户名");
 		FieldInfo info2=new FieldInfo();
 		info2.setFieldName("age");
-		info2.setFieldType("int");
+		info2.setFieldType("INTEGER");
 		info2.setFieldRemark("年龄");
 		list.add(info);
 		list.add(info2);

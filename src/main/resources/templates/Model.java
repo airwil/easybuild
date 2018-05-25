@@ -3,21 +3,22 @@ package [[${packages}]];
 /**
  * [[${notes}]]
  * 
+ * [[${creatTime}]]
  */
 public class [[${className}]]{
 	[# th:each="field : ${fields}"]
 	/**
 	 * [[${field.fieldRemark}]]
 	 */
-	private	[[${field.fieldType}]] [[${field.fieldName}]];
+	private	[[${field.javaType}]] [[${field.fieldName}]];
 	
 	[/]
 	[# th:each="field : ${fields}"]
-	public [[${field.fieldType}]] get[[${field.fieldNameUP}]](){
+	public [[${field.javaType}]] get[[${field.fieldNameUP}]](){
 		return [[${field.fieldName}]];
 	}
 	
-	public void set[[${field.fieldNameUP}]]([[${field.fieldType}]] [[${field.fieldName}]]){
+	public void set[[${field.fieldNameUP}]]([[${field.javaType}]] [[${field.fieldName}]]){
 		this.[[${field.fieldName}]]=[[${field.fieldName}]];
 	}
 	[/]
