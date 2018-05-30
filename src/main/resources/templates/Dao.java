@@ -1,11 +1,12 @@
-package [[${packages}]]
-[# th:each="item : ${imports}"]
-import [(${item})];\n
-[/]
+package [[${packages}]];
+
+import [[${baseDaoImport}]];
+import [[${modelImport}]];
 
 /**
- * [[${notes}]]
+ * 描述：[[${notes}]]
  * 
+ * 创建时间：[[${creatTime}]]
  */
 public interface [[${className}]]Dao extends BaseDao<[[${className}]]>{
 

@@ -1,7 +1,7 @@
+package [[${packages}]];
+
 import java.util.List;
 import java.util.Map;
-
-package [[${packages}]]
 [# th:each="item : ${imports}"]
 import [(${item})];\n
 [/]

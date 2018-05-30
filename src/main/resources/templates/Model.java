@@ -1,9 +1,9 @@
 package [[${packages}]];
 
 /**
- * [[${notes}]]
+ * 描述：[[${notes}]]
  * 
- * [[${creatTime}]]
+ * 创建时间：[[${creatTime}]]
  */
 public class [[${className}]]{
 	[# th:each="field : ${fields}"]

@@ -1,9 +1,9 @@
 package com.easybuild.cores.test;
 
 /**
- * 测试
+ * 描述：测试
  * 
- * 
+ * 创建时间：2018/05/28 14:11
  */
 public class Test{
 	

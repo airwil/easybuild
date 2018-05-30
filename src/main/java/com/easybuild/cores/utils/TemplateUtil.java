@@ -78,6 +78,11 @@ public class TemplateUtil {
 	 * 生成Java类
 	 */
 	public void createJava(String template,String dir,Map<String, Object> data) {
+		//生成时间
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        data.put("creatTime",sdf.format(new Date()));
+        
+        //创建模板生成类
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 		templateResolver.setTemplateMode("TEXT");
 		templateResolver.setPrefix("/templates/");
@@ -96,11 +101,9 @@ public class TemplateUtil {
         	f.mkdirs();
         }
         
-        //生成时间
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        data.put("creatTime",sdf.format(new Date()));
         
-        //生成
+        
+        //生成模板
 		try {
 			FileWriter writer = new FileWriter(dir);
 			templateEngine.process(template, context, writer);
@@ -127,6 +130,26 @@ public class TemplateUtil {
 	}
 	
 	
+	/** 
+	 * 生成DAO接口
+	 * @param packages DAO包位置
+	 * @param tableInfo 表信息
+	 * @param baseDaoImport BaseDao的位置
+	 * @param modelImport Model的位置
+	 */
+	public void createDao(String packages,TableInfo tableInfo,String baseDaoImport,String modelImport) {
+		Map<String,Object> data=new HashMap<>();
+		data.put("packages", packages);
+		data.put("notes", tableInfo.getNotes());
+		data.put("className", tableInfo.getTableNameUP());
+		data.put("baseDaoImport", baseDaoImport+".BaseDao");
+		data.put("modelImport", modelImport+"."+tableInfo.getTableNameUP());
+		String s=packages.replace(".", "/");
+		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Dao.java";
+		this.createJava("Dao", dir, data);
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		TemplateUtil templateUtil=new TemplateUtil();
@@ -145,6 +168,8 @@ public class TemplateUtil {
 		list.add(info);
 		list.add(info2);
 		tableInfo.setFieldList(list);
-		templateUtil.createModel("com.easybuild.cores.test", tableInfo);
+//		templateUtil.createModel("com.easybuild.cores.test", tableInfo);
+		templateUtil.createDao("com.easybuild.cores.test", tableInfo,"com.easybuild.cores.dao","com.easybuild.cores.test");
+		
 	}
 }
