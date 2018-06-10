@@ -2,9 +2,7 @@ package [[${packages}]];
 
 import java.util.List;
 import java.util.Map;
-[# th:each="item : ${imports}"]
-import [(${item})];\n
-[/]
+import [[${modelImport}]];
 
 /**
  * [[${notes}]]
@@ -20,7 +18,7 @@ public interface [[${className}]]Service {
 	/**
 	 * 根据主键删除
 	 */
-	int deleteByPrimaryKey(String id);
+	int deleteByPrimaryKey(int id);
 	 
 	
 	/**
@@ -32,7 +30,7 @@ public interface [[${className}]]Service {
 	/**
 	 * 根据主键查询
 	 */
-	[[${className}]] selectByPrimaryKey(String id);
+	[[${className}]] selectByPrimaryKey(int id);
 
 	
 	/**

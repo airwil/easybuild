@@ -1,11 +1,11 @@
-package [[${packages}]]
+package [[${packages}]];
 
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 [# th:each="item : ${imports}"]
-import [(${item})];\n
+import [[${item}]];
 [/]
 
 /**
@@ -28,7 +28,7 @@ public class [[${className}]]ServiceImpl {
 	/**
 	 * 根据主键删除
 	 */
-	public int deleteByPrimaryKey(String id) {
+	public int deleteByPrimaryKey(int id) {
 		return [[${className2}]]Dao.deleteByPrimaryKey(id);
 	}
 	 
@@ -44,7 +44,7 @@ public class [[${className}]]ServiceImpl {
 	/**
 	 * 根据主键查询
 	 */
-	public [[${className}]] selectByPrimaryKey(String id){
+	public [[${className}]] selectByPrimaryKey(int id){
 		return [[${className2}]]Dao.selectByPrimaryKey(id);
 	}
 

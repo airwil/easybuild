@@ -1,18 +1,15 @@
 package com.easybuild.cores.utils;
+import com.easybuild.cores.model.FieldInfo;
+import com.easybuild.cores.model.TableInfo;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import com.easybuild.cores.model.FieldInfo;
-import com.easybuild.cores.model.TableInfo;
+import java.util.*;
 
 /**
  * 根据模板生成Html或者Java
@@ -148,8 +145,67 @@ public class TemplateUtil {
 		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Dao.java";
 		this.createJava("Dao", dir, data);
 	}
-	
-	
+
+	/**
+	 * 生成Service接口
+	 */
+	public void createIService(String packages,TableInfo tableInfo,String modelImport){
+		Map<String,Object> data=new HashMap<>();
+		data.put("packages", packages);
+		data.put("notes", tableInfo.getNotes());
+		data.put("className", tableInfo.getTableNameUP());
+		data.put("modelImport", modelImport+"."+tableInfo.getTableNameUP());
+		String s=packages.replace(".", "/");
+		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Service.java";
+		this.createJava("Service", dir, data);
+	}
+
+	/**
+	 * 生成Service实现类
+	 */
+	public void createServiceImpl(String packages,TableInfo tableInfo,
+								  String modelImport,String daoImport,String serviceImport) {
+		Map<String,Object> data=new HashMap<>();
+		data.put("packages", packages);
+		data.put("notes", tableInfo.getNotes());
+		data.put("className", tableInfo.getTableNameUP());
+		data.put("className2",tableInfo.getTableName());
+		List<String> imports = new ArrayList<String>();
+		imports.add(modelImport+"."+tableInfo.getTableNameUP());
+		imports.add(daoImport+"."+tableInfo.getTableNameUP()+"Dao");
+		imports.add(serviceImport+"."+tableInfo.getTableNameUP()+"Service");
+		data.put("imports", imports);
+		data.put("daoImport",daoImport+"."+tableInfo.getTableNameUP());
+		String s=packages.replace(".", "/");
+		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"ServiceImpl.java";
+		this.createJava("ServiceImpl", dir, data);
+	}
+
+	/**
+	 * 生成Controller
+	 */
+	public void createController(String packages,TableInfo tableInfo,
+			  String modelImport,String serviceImport,String utilImport,
+			  String[] searchParams,String sort) {
+		Map<String,Object> data=new HashMap<>();
+		data.put("packages", packages);
+		data.put("notes", tableInfo.getNotes());
+		data.put("className", tableInfo.getTableNameUP());
+		data.put("className2",tableInfo.getTableName());
+		List<String> imports = new ArrayList<String>();
+		imports.add(modelImport+"."+tableInfo.getTableNameUP());
+		imports.add(serviceImport+"."+tableInfo.getTableNameUP()+"Service");
+		imports.add(utilImport+".ResponseUtil");
+		imports.add(utilImport+".ResultGenerator");
+		data.put("", "");
+	}
+
+	/**
+	 * 生成MapperXML
+	 */
+	public void createMapperXML() {
+
+	}
 	
 	public static void main(String[] args) {
 		TemplateUtil templateUtil=new TemplateUtil();
@@ -168,8 +224,12 @@ public class TemplateUtil {
 		list.add(info);
 		list.add(info2);
 		tableInfo.setFieldList(list);
-//		templateUtil.createModel("com.easybuild.cores.test", tableInfo);
-		templateUtil.createDao("com.easybuild.cores.test", tableInfo,"com.easybuild.cores.dao","com.easybuild.cores.test");
-		
+		templateUtil.createModel("com.easybuild.cores.model", tableInfo);
+//		templateUtil.createDao("com.easybuild.cores.dao", tableInfo,"com.easybuild.cores.dao","com.easybuild.cores.model");
+//		templateUtil.createIService("com.easybuild.cores.service", tableInfo,"com.easybuild.cores.model");
+//		templateUtil.createServiceImpl("com.easybuild.cores.service.impl", tableInfo,
+//				"com.easybuild.cores.model","com.easybuild.cores.dao",
+//				"com.easybuild.cores.service");
+
 	}
 }

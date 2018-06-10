@@ -16,7 +16,7 @@ public interface BaseDao<T> {
 	/**
 	 * 根据主键删除
 	 */
-	int deleteByPrimaryKey(String id);
+	int deleteByPrimaryKey(int id);
 	 
 	
 	/**
@@ -28,7 +28,7 @@ public interface BaseDao<T> {
 	/**
 	 * 根据主键查询
 	 */
-	T selectByPrimaryKey(String id);
+	T selectByPrimaryKey(int id);
 
 	
 	/**
