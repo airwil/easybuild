@@ -195,9 +195,18 @@ public class TemplateUtil {
 		List<String> imports = new ArrayList<String>();
 		imports.add(modelImport+"."+tableInfo.getTableNameUP());
 		imports.add(serviceImport+"."+tableInfo.getTableNameUP()+"Service");
-		imports.add(utilImport+".ResponseUtil");
-		imports.add(utilImport+".ResultGenerator");
-		data.put("", "");
+		imports.add(utilImport+".*");
+		data.put("imports", imports);
+		if(searchParams==null||searchParams.length<1){
+			data.put("isSearch", null);	
+		}else{
+			data.put("isSearch", "true");
+		}
+		data.put("searchParams", searchParams);
+		data.put("sort", sort);
+		String s=packages.replace(".", "/");
+		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Controller.java";
+		this.createJava("Controller", dir, data);
 	}
 
 	/**
@@ -206,6 +215,7 @@ public class TemplateUtil {
 	public void createMapperXML() {
 
 	}
+	
 	
 	public static void main(String[] args) {
 		TemplateUtil templateUtil=new TemplateUtil();
@@ -224,12 +234,13 @@ public class TemplateUtil {
 		list.add(info);
 		list.add(info2);
 		tableInfo.setFieldList(list);
-		templateUtil.createModel("com.easybuild.cores.model", tableInfo);
+//		templateUtil.createModel("com.easybuild.cores.model", tableInfo);
 //		templateUtil.createDao("com.easybuild.cores.dao", tableInfo,"com.easybuild.cores.dao","com.easybuild.cores.model");
 //		templateUtil.createIService("com.easybuild.cores.service", tableInfo,"com.easybuild.cores.model");
 //		templateUtil.createServiceImpl("com.easybuild.cores.service.impl", tableInfo,
 //				"com.easybuild.cores.model","com.easybuild.cores.dao",
 //				"com.easybuild.cores.service");
-
+		templateUtil.createController("com.easybuild.cores.controller", tableInfo, "com.easybuild.cores.model",
+				"com.easybuild.cores.service", "com.easybuild.cores.utils", null, "id");
 	}
 }

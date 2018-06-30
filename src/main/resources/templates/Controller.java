@@ -2,19 +2,21 @@ package [[${packages}]];
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpServletResponse;
 import com.easybuild.cores.utils.Result;
 import com.easybuild.cores.utils.ResultGenerator;
 import java.util.Map;
+import java.util.HashMap;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import com.easybuild.cores.utils.ResponseUtil;
-[# th:each="item:imports"]
+import java.util.List;
+[# th:each="item:${imports}"]
 import [[${item}]];  
 [/]
 
-@RestController("/[[${className2}]]")
+@RestController
+@RequestMapping("/[[${className2}]]")
 public class [[${className}]]Controller {
     @Autowired
     private [[${className}]]Service [[${className2}]]Service;
@@ -26,9 +28,9 @@ public class [[${className}]]Controller {
     public Result<String> insert(@RequestBody [[${className}]] [[${className2}]]){
         int res=[[${className2}]]Service.insert([[${className2}]]);
         if(res==1){
-            ResultGenerator.genSuccessResult();
+            return ResultGenerator.genSuccessResult();
         }else{
-            ResultGenerator.genFailResult(null);
+        	return ResultGenerator.genFailResult(null);
         }
     }
 
@@ -54,9 +56,9 @@ public class [[${className}]]Controller {
     public Result<String> update(@RequestBody [[${className}]] [[${className2}]]){
     	int res=[[${className2}]]Service.updateByPrimaryKey([[${className2}]]);
     	if(res==1){
-    		ResultGenerator.genSuccessResult();
+    		return ResultGenerator.genSuccessResult();
     	}else{
-    		ResultGenerator.genFailResult(null);
+    		return ResultGenerator.genFailResult(null);
     	}
     }
     
@@ -64,7 +66,7 @@ public class [[${className}]]Controller {
      * 主键查询
      */
     @GetMapping("/info/{id}")
-    public Result<[[${className}]]> selectById(@PathVariable("id") int id){
+    public Result<?> selectById(@PathVariable("id") int id){
     	[[${className}]] [[${className2}]] = [[${className2}]]Service.selectByPrimaryKey(id);
     	if(null==[[${className2}]]){
     		return ResultGenerator.genFailResult(null);
@@ -100,7 +102,7 @@ public class [[${className}]]Controller {
         [/]
         
         //设置排序参数
-        map.put("sort",[[${sort}]]);
+        map.put("sort","[[${sort}]]");
         
         //发送数据
         List<[[${className}]]> list=[[${className2}]]Service.select(map);
@@ -109,6 +111,6 @@ public class [[${className}]]Controller {
         JSONArray jsonArray = JSONArray.fromObject(list);
         result.put("rows", jsonArray);
         result.put("total", total);
-        ResponseUtil.write(result);
+        ResponseUtil.write(response,result);
     }
 }
