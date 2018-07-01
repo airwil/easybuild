@@ -212,8 +212,31 @@ public class TemplateUtil {
 	/**
 	 * 生成MapperXML
 	 */
-	public void createMapperXML() {
-
+	public void createMapperXML(String xmlname,TableInfo tableInfo) {
+		String path=System.getProperty("user.dir")+"/src/main/resources/mappers/";
+		String dir=path+xmlname+".xml";
+		
+		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		templateResolver.setTemplateMode("TEXT");
+		templateResolver.setPrefix("/templates/");
+        templateResolver.setSuffix(".txt");
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("daoImport", "com.easybuild.cores.dao.TestDao");
+        map.put("modelImport", "com.easybuild.cores.model.Test");
+        map.put("fields", tableInfo.getFieldList());
+        map.put("tableInfo", tableInfo);
+        String searchParams[]={"id","name"};
+        map.put("searchParams", searchParams);
+        Context context=new Context();
+        context.setVariables(map);
+		try {
+			FileWriter writer = new FileWriter(dir);
+			templateEngine.process("Mapper", context, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -240,7 +263,8 @@ public class TemplateUtil {
 //		templateUtil.createServiceImpl("com.easybuild.cores.service.impl", tableInfo,
 //				"com.easybuild.cores.model","com.easybuild.cores.dao",
 //				"com.easybuild.cores.service");
-		templateUtil.createController("com.easybuild.cores.controller", tableInfo, "com.easybuild.cores.model",
-				"com.easybuild.cores.service", "com.easybuild.cores.utils", null, "id");
+//		templateUtil.createController("com.easybuild.cores.controller", tableInfo, "com.easybuild.cores.model",
+//				"com.easybuild.cores.service", "com.easybuild.cores.utils", null, "id");
+		templateUtil.createMapperXML("TestMapper",tableInfo);
 	}
 }

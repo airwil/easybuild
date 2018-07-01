@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easybuild.cores.dao.TestDao" >
+
+  <resultMap id="BaseResultMap"  type="com.easybuild.cores.model.Test">
+     <id column="id" property="id"  jdbcType="INTEGER"/>
+     <result column="username"  property="username"  jdbcType="VARCHAR"/>
+     <result column="age"  property="age"  jdbcType="INTEGER"/>
+  </resultMap>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from test
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from test
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.easybuild.cores.model.Test" >
+    insert into test
+    values (
+	        #{username,jdbcType=VARCHAR} 
+            ,
+	        #{age,jdbcType=INTEGER} 
+            )
+  </insert>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.easybuild.cores.model.Test">
+    update test
+      <set>
+        <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+        </if>
+        <if test="age != null" >
+        age = #{age,jdbcType=VARCHAR},
+        </if>
+      </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="select" parameterType="java.util.Map"  resultMap="BaseResultMap">
+       select *from test
+       where  id=#{id}
+       and name=#{name}
+       
+  </select>
+  
+  <select id="count" parameterType="java.util.Map">
+       
+  </select>
+</mapper>

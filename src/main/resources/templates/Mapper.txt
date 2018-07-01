@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="[[${daoImport}]]" >
+
+  <resultMap id="BaseResultMap"  type="[[${modelImport}]]">
+     <id column="id" property="id"  jdbcType="INTEGER"/>[# th:each="item:${fields}"]
+     <result column="[[${item.fieldName}]]"  property="[[${item.fieldName}]]"  jdbcType="[[${item.fieldType}]]"/>[/]
+  </resultMap>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from [[${tableInfo.tableName}]]
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from [[${tableInfo.tableName}]]
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="[[${modelImport}]]" >
+    insert into [[${tableInfo.tableName}]]
+    values ([# th:each="item,itemStat :${fields}"]
+	        #{[[${item.fieldName}]],jdbcType=[[${item.fieldType}]]} [# th:if="${itemStat.count}!=${itemStat.size}"]
+            ,[/][/]
+            )
+  </insert>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="[[${modelImport}]]">
+    update [[${tableInfo.tableName}]]
+      <set>[# th:each="item,itemStat :${fields}"]
+        <if test="[[${item.fieldName}]] != null" >
+        [[${item.fieldName}]] = #{[[${item.fieldName}]],jdbcType=VARCHAR},
+        </if>
+      [/]</set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="select" parameterType="java.util.Map"  resultMap="BaseResultMap">
+       select *from [[${tableInfo.tableName}]]
+       where [# th:each="item,itemStat:${searchParams}"] [[${item}]]=#{[[${item}]]}
+       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/]
+  </select>
+  
+  <select id="count" parameterType="java.util.Map">
+       
+  </select>
+</mapper>
