@@ -1,6 +1,8 @@
 package com.easybuild.cores.utils;
 import com.easybuild.cores.model.FieldInfo;
 import com.easybuild.cores.model.TableInfo;
+
+import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -14,6 +16,7 @@ import java.util.*;
 /**
  * 根据模板生成Html或者Java
  */
+@Component
 public class TemplateUtil {
 	/**
 	 * 生成HTML

@@ -46,13 +46,16 @@
   
   
   <select id="select" parameterType="java.util.Map"  resultMap="BaseResultMap">
-       select *from test
+       select *from test 
        where  id=#{id}
        and name=#{name}
-       
+        limit #{start},#{size}
   </select>
   
   <select id="count" parameterType="java.util.Map">
-       
+       select count(*) from test 
+       where  id=#{id}
+       and name=#{name}
+        limit #{start},#{size}
   </select>
 </mapper>

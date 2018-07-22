@@ -41,12 +41,14 @@
   
   
   <select id="select" parameterType="java.util.Map"  resultMap="BaseResultMap">
-       select *from [[${tableInfo.tableName}]]
+       select *from [[${tableInfo.tableName}]] [# th:if="${searchParams}!=null"]
        where [# th:each="item,itemStat:${searchParams}"] [[${item}]]=#{[[${item}]]}
-       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/]
+       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/][/] limit #{start},#{size}
   </select>
   
   <select id="count" parameterType="java.util.Map">
-       
+       select count(*) from [[${tableInfo.tableName}]] [# th:if="${searchParams}!=null"]
+       where [# th:each="item,itemStat:${searchParams}"] [[${item}]]=#{[[${item}]]}
+       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/][/] limit #{start},#{size}
   </select>
 </mapper>
