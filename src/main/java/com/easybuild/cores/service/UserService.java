@@ -7,7 +7,7 @@ import com.easybuild.cores.model.User;
 /**
  * 描述：用户表
  * 
- * 创建时间：2018/07/28 19:56
+ * 创建时间：2018/07/28 22:56
  */
 public interface UserService {
 	/**

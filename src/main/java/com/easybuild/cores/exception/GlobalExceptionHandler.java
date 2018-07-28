@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public String errorHandler(Exception ex) {
-    	log.error("【系统异常】{}",ex);
-        return "/error";
+    	log.error("【系统异常】"+ex);
+        return "redirect:/error/404.html";
     }
 }

@@ -13,7 +13,7 @@ import com.easybuild.cores.service.UserService;
 /**
  * 描述：用户表Service实现
  * 
- * 创建时间：2018/07/28 19:56
+ * 创建时间：2018/07/28 22:56
  */
 @Service
 public class UserServiceImpl implements UserService{
