@@ -269,7 +269,7 @@ public class TemplateUtil {
 		list.add(info);
 		list.add(info2);
 		tableInfo.setFieldList(list);
-//		templateUtil.createModel("com.easybuild.cores.model", tableInfo);
+		templateUtil.createModel("com.easybuild.cores.model", tableInfo);
 //		templateUtil.createDao("com.easybuild.cores.dao", tableInfo,"com.easybuild.cores.dao","com.easybuild.cores.model");
 //		templateUtil.createIService("com.easybuild.cores.service", tableInfo,"com.easybuild.cores.model");
 //		templateUtil.createServiceImpl("com.easybuild.cores.service.impl", tableInfo,

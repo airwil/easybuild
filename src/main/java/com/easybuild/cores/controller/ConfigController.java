@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.easybuild.cores.config.Database;
+
+import com.easybuild.cores.model.Database;
 import com.easybuild.cores.utils.PropertiesUtil;
 
 /**

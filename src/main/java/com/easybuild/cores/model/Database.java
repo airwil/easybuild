@@ -1,4 +1,4 @@
-package com.easybuild.cores.config;
+package com.easybuild.cores.model;
 
 /**
  * 数据库配置信息
