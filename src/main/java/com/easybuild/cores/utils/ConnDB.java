@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,6 +109,7 @@ public class ConnDB {
 				list.add(fieldInfo);
 				System.out.println(fieldName+" "+fieldType+" "+fieldRemark);
 			}
+			System.out.println("-----------------------------------------");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -125,7 +127,36 @@ public class ConnDB {
 		return list;
 	}
 	
-	
+	/**
+	 * 根据表名获取表的注释
+	 */
+	public String getTableRemark(String tableName){
+		Connection connection = null;
+		ResultSet rs = null;
+		String comment="";
+		try {
+			// 注册 JDBC 驱动
+			Class.forName("com.mysql.jdbc.Driver");
+			// 获取连接
+			connection = DriverManager.getConnection(url, username, password);
+			Statement stmt = connection.createStatement();
+			rs = stmt.executeQuery("SHOW CREATE TABLE " + tableName);
+			if(rs!=null&&rs.next()){
+				String createSql=rs.getString(2);
+				int index = createSql.indexOf("COMMENT='");
+		        if (index < 0) {
+		            return "";
+		        }
+		        comment = createSql.substring(index + 9);
+		        comment = comment.substring(0, comment.length() - 1);
+		        comment = new String(comment.getBytes("iso-8859-1"),"utf-8");
+		        System.out.println(comment);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comment;
+	}
 	
 	public static void main(String[] args) {
 		ConnDB cdb = new ConnDB("jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf8", "root",

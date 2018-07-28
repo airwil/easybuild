@@ -39,7 +39,7 @@ public class [[${className}]]Controller {
      */
     @GetMapping("/delete/{ids}")
     public Result<String> delete(@PathVariable("ids") String ids){
-    	if(""==ids&&ids.equals("")){
+    	if(null==ids||ids.equals("")){
     		return ResultGenerator.genFailResult(null);
     	}
         String str[]=ids.split(",");

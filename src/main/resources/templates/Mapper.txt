@@ -3,8 +3,8 @@
 <mapper namespace="[[${daoImport}]]" >
 
   <resultMap id="BaseResultMap"  type="[[${modelImport}]]">
-     <id column="id" property="id"  jdbcType="INTEGER"/>[# th:each="item:${fields}"]
-     <result column="[[${item.fieldName}]]"  property="[[${item.fieldName}]]"  jdbcType="[[${item.fieldType}]]"/>[/]
+     <id column="id" property="id"  jdbcType="INTEGER"/>[# th:each="item,itemStat:${fields}"][# th:if="${itemStat.count}!=1"]
+     <result column="[[${item.fieldName}]]"  property="[[${item.fieldName}]]"  jdbcType="[[${item.fieldType}]]"/>[/][/]
   </resultMap>
   
   
@@ -21,20 +21,22 @@
   
   
   <insert id="insert" parameterType="[[${modelImport}]]" >
-    insert into [[${tableInfo.tableName}]]
-    values ([# th:each="item,itemStat :${fields}"]
-	        #{[[${item.fieldName}]],jdbcType=[[${item.fieldType}]]} [# th:if="${itemStat.count}!=${itemStat.size}"]
-            ,[/][/]
-            )
+    insert into [[${tableInfo.tableName}]](
+    [# th:each="item,itemStat :${fields}"][# th:if="${itemStat.count}!=1"][[${item.fieldName}]][# th:if="${itemStat.count}!=${itemStat.size}"],[/]
+    [/][/])
+    values ([# th:each="item,itemStat :${fields}"][# th:if="${itemStat.count}!=1"]#{[[${item.fieldName}]],jdbcType=[[${item.fieldType}]]} 
+    	    [# th:if="${itemStat.count}!=${itemStat.size}"],[/][/][/])
   </insert>
   
   
   <update id="updateByPrimaryKey" parameterType="[[${modelImport}]]">
     update [[${tableInfo.tableName}]]
       <set>[# th:each="item,itemStat :${fields}"]
+        [# th:if="${itemStat.count}!=1"]
         <if test="[[${item.fieldName}]] != null" >
         [[${item.fieldName}]] = #{[[${item.fieldName}]],jdbcType=VARCHAR},
         </if>
+        [/]
       [/]</set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -49,6 +51,6 @@
   <select id="count" parameterType="java.util.Map">
        select count(*) from [[${tableInfo.tableName}]] [# th:if="${searchParams}!=null"]
        where [# th:each="item,itemStat:${searchParams}"] [[${item}]]=#{[[${item}]]}
-       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/][/] limit #{start},#{size}
+       [# th:if="${itemStat.count}!=${itemStat.size}"]and[/][/][/]
   </select>
 </mapper>

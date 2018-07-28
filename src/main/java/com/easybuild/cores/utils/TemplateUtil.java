@@ -147,6 +147,8 @@ public class TemplateUtil {
 		String s=packages.replace(".", "/");
 		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Dao.java";
 		this.createJava("Dao", dir, data);
+		System.err.println("生成Dao类:"+tableInfo.getTableNameUP()+"Dao");
+		System.err.println("路径:"+dir);
 	}
 
 	/**
@@ -161,6 +163,8 @@ public class TemplateUtil {
 		String s=packages.replace(".", "/");
 		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Service.java";
 		this.createJava("Service", dir, data);
+		System.err.println("生成Service类:"+tableInfo.getTableNameUP()+"Service");
+		System.err.println("路径:"+dir);
 	}
 
 	/**
@@ -182,6 +186,8 @@ public class TemplateUtil {
 		String s=packages.replace(".", "/");
 		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"ServiceImpl.java";
 		this.createJava("ServiceImpl", dir, data);
+		System.err.println("生成ServiceImpl类:"+tableInfo.getTableNameUP()+"ServiceImpl");
+		System.err.println("路径:"+dir);
 	}
 
 	/**
@@ -210,12 +216,14 @@ public class TemplateUtil {
 		String s=packages.replace(".", "/");
 		String dir=System.getProperty("user.dir")+"/src/main/java/"+s+"/"+tableInfo.getTableNameUP()+"Controller.java";
 		this.createJava("Controller", dir, data);
+		System.err.println("生成Controller类:"+tableInfo.getTableNameUP()+"Controller");
+		System.err.println("路径:"+dir);
 	}
 
 	/**
 	 * 生成MapperXML
 	 */
-	public void createMapperXML(String xmlname,TableInfo tableInfo) {
+	public void createMapperXML(String xmlname,TableInfo tableInfo,String modelImport,String daoImport,String searchParams[]) {
 		String path=System.getProperty("user.dir")+"/src/main/resources/mappers/";
 		String dir=path+xmlname+".xml";
 		
@@ -226,11 +234,10 @@ public class TemplateUtil {
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
         Map<String,Object> map=new HashMap<String, Object>();
-        map.put("daoImport", "com.easybuild.cores.dao.TestDao");
-        map.put("modelImport", "com.easybuild.cores.model.Test");
+        map.put("daoImport", daoImport+"."+tableInfo.getTableNameUP()+"Dao");
+        map.put("modelImport", modelImport+"."+tableInfo.getTableNameUP());
         map.put("fields", tableInfo.getFieldList());
         map.put("tableInfo", tableInfo);
-        String searchParams[]={"id","name"};
         map.put("searchParams", searchParams);
         Context context=new Context();
         context.setVariables(map);
@@ -240,6 +247,8 @@ public class TemplateUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.err.println("生成mapper:"+tableInfo.getTableNameUP()+"Mapper");
+		System.err.println("路径:"+dir);
 	}
 	
 	
@@ -268,6 +277,6 @@ public class TemplateUtil {
 //				"com.easybuild.cores.service");
 //		templateUtil.createController("com.easybuild.cores.controller", tableInfo, "com.easybuild.cores.model",
 //				"com.easybuild.cores.service", "com.easybuild.cores.utils", null, "id");
-		templateUtil.createMapperXML("TestMapper",tableInfo);
+//		templateUtil.createMapperXML("TestMapper",tableInfo);
 	}
 }

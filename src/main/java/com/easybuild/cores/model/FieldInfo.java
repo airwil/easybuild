@@ -36,6 +36,10 @@ public class FieldInfo {
 			case "INTEGER":
 				this.javaType="Integer";
 				break;
+			case "INT":
+				this.javaType="Integer";
+				this.fieldType="INTEGER";
+				break;
 			case "VARCHAR":
 				this.javaType="String";
 				break;

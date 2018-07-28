@@ -9,8 +9,9 @@ import [[${item}]];
 [/]
 
 /**
- * [[${notes}]]
+ * 描述：[[${notes}]]Service实现
  * 
+ * 创建时间：[[${creatTime}]]
  */
 @Service
 public class [[${className}]]ServiceImpl implements [[${className}]]Service{
