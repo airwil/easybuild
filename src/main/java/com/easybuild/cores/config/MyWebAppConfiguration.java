@@ -17,14 +17,17 @@ public class MyWebAppConfiguration extends WebMvcConfigurerAdapter{
 	@Value(value = "${custom.uploadPath}")
 	private String uploadPath;
 	
-	/**
-	 * 设置SpringBoot读取本地文件，相当于虚拟一个服务器
-	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
-		//指定“/pic/**”定向到本地路径“F:/testUpload/”
+		/**
+		 * 设置SpringBoot读取本地文件，相当于虚拟一个服务器
+		 */
+		//指定“/pic/**”定向到本地路径
 		registry.addResourceHandler("/pic/**").addResourceLocations("file:"+uploadPath);
+		
+		//自定义静态资源映射
+		registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/static/admin/");
+		registry.addResourceHandler("/portal/**").addResourceLocations("classpath:/static/portal/");
 		super.addResourceHandlers(registry);
 	}
 	
