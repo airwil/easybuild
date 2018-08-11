@@ -1,4 +1,5 @@
 package com.easybuild.cores.utils;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,6 +21,11 @@ public class FileUpload {
 	 */
 	public static void uplaod(String localPath,MultipartFile file,HttpServletRequest request) {
 		try {
+			File filepath=new File(localPath);
+			if(!filepath.exists()){
+				filepath.mkdirs();
+			}
+			
 		    byte[] bytes = file.getBytes();
 		    String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, 
 		    		file.getOriginalFilename().length());
