@@ -43,6 +43,10 @@ public class FieldInfo {
 			case "VARCHAR":
 				this.javaType="String";
 				break;
+			case "TEXT":
+				this.javaType="String";
+				this.fieldType="LONGVARCHAR";
+				break;
 			case "DATE":
 				this.javaType="java.util.Date";
 				break;
