@@ -1,31 +1,29 @@
-package com.easybuild.cores.utils;
+package com.easybuild.cores.utils.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.easybuild.cores.model.TableInfo;
-
 public class AutoBuildStarter {
 	/**model包名*/
-	private static final String MODEL_PACKAGE="com.easybuild.cores.model";
+	private static String MODEL_PACKAGE="com.easybuild.cores.model";
 	
 	/**DAO包名*/
-	private static final String DAO_PACKAGE="com.easybuild.cores.dao";
+	private static String DAO_PACKAGE="com.easybuild.cores.dao";
 	
 	/**BaseDao包名*/
-	private static final String BASEDAO_PACKAGE="com.easybuild.cores.dao";
+	private static String BASEDAO_PACKAGE="com.easybuild.cores.dao";
 	
 	/**Service包名*/
-	private static final String SERVICE_PACKAGE="com.easybuild.cores.service";
+	private static String SERVICE_PACKAGE="com.easybuild.cores.service";
 	
 	/**ServiceImpl包名*/
-	private static final String SERVICE_IMPL_PACKAGE="com.easybuild.cores.service.impl";
+	private static String SERVICE_IMPL_PACKAGE="com.easybuild.cores.service.impl";
 	
 	/**Controller包名*/
-	private static final String CONTROLLER_PACKAGE="com.easybuild.cores.controller";
+	private static String CONTROLLER_PACKAGE="com.easybuild.cores.controller";
 	
 	/**Util工具类包名*/
-	private static final String UTILS_PACKAGE="com.easybuild.cores.utils";
+	private static String UTILS_PACKAGE="com.easybuild.cores.utils";
 	
 	/**配置不需要创建的表名*/
 	private static final String[] NO_CREATE_TABLES=null;
@@ -37,7 +35,21 @@ public class AutoBuildStarter {
 	private static final  String[] SEARCHPARAMS=null;
 	
 	public static void main(String[] args) {
+//		settingPackage("com.easybuild.cores");//包名前缀一致时使用
 		start();
+	}
+
+	/**
+	 * 配置包前缀，在包前缀一致的情况下使用
+	 */
+	public static void settingPackage(String prefix) {
+		AutoBuildStarter.MODEL_PACKAGE=prefix+".model";
+		AutoBuildStarter.DAO_PACKAGE=prefix+".dao";
+		AutoBuildStarter.BASEDAO_PACKAGE=prefix+".dao";
+		AutoBuildStarter.SERVICE_PACKAGE=prefix+".service";
+		AutoBuildStarter.SERVICE_IMPL_PACKAGE=prefix+".service.impl";
+		AutoBuildStarter.CONTROLLER_PACKAGE=prefix+".controller";
+		AutoBuildStarter.UTILS_PACKAGE=prefix+".utils";
 	}
 
 

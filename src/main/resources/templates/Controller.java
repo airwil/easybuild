@@ -3,13 +3,10 @@ package [[${packages}]];
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletResponse;
-import com.easybuild.cores.utils.Result;
-import com.easybuild.cores.utils.ResultGenerator;
 import java.util.Map;
 import java.util.HashMap;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import com.easybuild.cores.utils.ResponseUtil;
 import java.util.List;
 [# th:each="item:${imports}"]
 import [[${item}]];  

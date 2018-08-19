@@ -1,4 +1,4 @@
-package com.easybuild.cores.model;
+package com.easybuild.cores.utils.generator;
 
 /**
  * 数据库配置信息

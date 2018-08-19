@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +18,7 @@ public class FileUpload {
 	 * @param file 上传文件
 	 * @param request HttpServletRequest
 	 */
-	public static void uplaod(String localPath,MultipartFile file,HttpServletRequest request) {
+	public static String uplaod(String localPath,MultipartFile file,HttpServletRequest request) {
 		try {
 			File filepath=new File(localPath);
 			if(!filepath.exists()){
@@ -29,10 +28,13 @@ public class FileUpload {
 		    byte[] bytes = file.getBytes();
 		    String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1, 
 		    		file.getOriginalFilename().length());
-			Path path=Paths.get(localPath,UUID.randomUUID().toString()+"."+type);
+		    String filename=UUID.randomUUID().toString()+"."+type;
+			Path path=Paths.get(localPath,filename);
 			Files.write(path, bytes);
+			return filename;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

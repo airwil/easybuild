@@ -14,7 +14,7 @@ import com.easybuild.cores.interceptor.MyInterceptor;
 @Configuration
 public class MyWebAppConfiguration extends WebMvcConfigurerAdapter{
 	//读取配置文件
-	@Value(value = "${custom.uploadPath}")
+	@Value(value = "${uploadPath}")
 	private String uploadPath;
 	
 	@Override

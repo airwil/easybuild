@@ -1,4 +1,4 @@
-package com.easybuild.cores.model;
+package com.easybuild.cores.utils.generator;
 
 /**
  * 表字段信息
@@ -51,7 +51,7 @@ public class FieldInfo {
 				this.javaType="java.util.Date";
 				break;
 			case "TIMESTAMP":
-				this.javaType="java.sql.Timestamp";
+				this.javaType="java.util.Date";
 				break;
 			case "DECIMAL":
 				this.javaType="java.math.BigDecimal";

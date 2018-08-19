@@ -1,4 +1,4 @@
-package com.easybuild.cores.utils;
+package com.easybuild.cores.utils.generator;
 import java.util.*;  
   
 /** 

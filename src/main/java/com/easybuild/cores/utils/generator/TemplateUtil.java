@@ -1,7 +1,4 @@
-package com.easybuild.cores.utils;
-import com.easybuild.cores.model.FieldInfo;
-import com.easybuild.cores.model.TableInfo;
-
+package com.easybuild.cores.utils.generator;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
