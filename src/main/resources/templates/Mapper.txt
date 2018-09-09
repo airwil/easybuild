@@ -34,7 +34,7 @@
       <set>[# th:each="item,itemStat :${fields}"]
         [# th:if="${itemStat.count}!=1"]
         <if test="[[${item.fieldName}]] != null" >
-        [[${item.fieldName}]] = #{[[${item.fieldName}]],jdbcType=VARCHAR},
+        [[${item.fieldName}]] = #{[[${item.fieldName}]],jdbcType=[[${item.fieldType}]]},
         </if>
         [/]
       [/]</set>
